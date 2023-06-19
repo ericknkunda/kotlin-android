@@ -30,9 +30,18 @@ class eacMessage : Fragment() {
 
         recyclerView =view.findViewById(R.id.countries_recycler)
         val list = mutableListOf<CountryAttributes>()
-        list.add(CountryAttributes(1, "Rwanda"))
-        list.add(CountryAttributes(2, "Burundi"))
-        list.add(CountryAttributes(3, "Kenya"))
+        list.add(CountryAttributes(1, "Rwanda", R.drawable.flag_rwanda))
+        list.add(CountryAttributes(2, "Burundi",R.drawable.flag_burundi))
+        list.add(CountryAttributes(3, "Kenya", R.drawable.flag_kenya))
+        list.add(CountryAttributes(4, "China", R.drawable.flag_china))
+        list.add(CountryAttributes(5, "Tanzania", R.drawable.flag_kenya))
+        list.add(CountryAttributes(6, "Russia", R.drawable.flag_russia))
+        list.add(CountryAttributes(7, "Japan", R.drawable.flag_japan))
+        list.add(CountryAttributes(8, "Ethiopia", R.drawable.flag_ethiopia))
+        list.add(CountryAttributes(9, "England", R.drawable.flag_england))
+        list.add(CountryAttributes(10, "Egypt", R.drawable.flag_egypt))
+
+
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager =layoutManager
         countriesAdapter =CountriesAdapter(list)
