@@ -3,16 +3,41 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/layout_borders"
+        android:orientation="horizontal">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eac_nations"
+        android:text="EAC"
+        android:background="@drawable/button_borders"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:onClick="openFirstFragment"
+        android:textSize="12dp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="click me"
-        android:layout_marginTop="300dp"
         android:padding="10dp"
-        android:layout_marginLeft="100dp"
+        android:layout_margin="15dp"
         android:textAlignment="center"
-        android:onClick="openActivitryTwo"
+        android:background="@drawable/button_borders"
+        android:onClick="openSecondFragment"
         android:fontFamily="sans-serif"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rgb1"
+        android:id="@+id/fragment_frame"/>
 
 
 </LinearLayout>
