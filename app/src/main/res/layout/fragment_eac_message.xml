@@ -6,9 +6,10 @@
     tools:context=".eacMessage">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/frag_one" />
+        android:id="@+id/countries_recycler"/>
+
 
 </androidx.cardview.widget.CardView>

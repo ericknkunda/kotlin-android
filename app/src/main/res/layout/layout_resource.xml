@@ -2,34 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:background="@drawable/layout_borders"
         android:orientation="horizontal">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/eac_nations"
-        android:text="EAC"
+        android:text="@string/firstfragment"
         android:background="@drawable/button_borders"
-        android:padding="5dp"
+        android:textColor="#000000"
+        android:padding="10dp"
         android:layout_margin="10dp"
+        style="@style/btn_bgrd"
         android:onClick="openFirstFragment"
         android:textSize="12dp"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
         android:text="click me"
         android:padding="10dp"
         android:layout_margin="15dp"
         android:textAlignment="center"
+        style="@style/btn_bgrd"
         android:background="@drawable/button_borders"
+        android:textColor="#000000"
         android:onClick="openSecondFragment"
         android:fontFamily="sans-serif"/>
     </LinearLayout>

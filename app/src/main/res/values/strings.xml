@@ -48,4 +48,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="frag_one">I am fragment one</string>
     <string name="frag_two">I am second fragment</string>
+    <string name="firstfragment">EAC</string>
 </resources>
