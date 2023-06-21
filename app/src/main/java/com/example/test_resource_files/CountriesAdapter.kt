@@ -10,8 +10,9 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
-class CountriesAdapter(val countriesList:List<CountryAttributes>): RecyclerView.Adapter<CountriesAdapter.CountriesHolder>() {
+class CountriesAdapter(var countriesList:List<CountryAttributes>): RecyclerView.Adapter<CountriesAdapter.CountriesHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesAdapter.CountriesHolder {
 //        TODO("Not yet implemented")
        val inflator:LayoutInflater =LayoutInflater.from(parent.context)
@@ -23,10 +24,12 @@ class CountriesAdapter(val countriesList:List<CountryAttributes>): RecyclerView.
     override fun onBindViewHolder(holder: CountriesAdapter.CountriesHolder, position: Int) {
 //        TODO("Not yet implemented")
     val attributedCountry =countriesList.get(position)
-        holder.serial.text =attributedCountry.serial.toString()
-        holder.countryNames.text =attributedCountry.countryName.toString()
-        val imageId =attributedCountry.countryFlag
-        holder.imageView.setImageResource(imageId)
+        holder.name.text =attributedCountry.name.toString()
+        Picasso.get().load(attributedCountry.flag).into(holder.imageView)
+//        holder.code.text =attributedCountry.code.toString()
+
+//        val imageId =attributedCountry.countryFlag
+//        holder.imageView.setImageResource(imageId)
 
     }
 
@@ -34,7 +37,10 @@ class CountriesAdapter(val countriesList:List<CountryAttributes>): RecyclerView.
 //        TODO("Not yet implemented")
         return  countriesList.size
     }
-
+    fun updateData(newCountryList: List<CountryAttributes>) {
+        countriesList = newCountryList
+        notifyDataSetChanged()
+    }
 
     inner class CountriesHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
@@ -54,7 +60,7 @@ class CountriesAdapter(val countriesList:List<CountryAttributes>): RecyclerView.
 
             // Find and set the country name in the popup view
             val countryNameTextView = popupView.findViewById<TextView>(R.id.popup_view)
-            countryNameTextView.text = country.countryName
+            countryNameTextView.text = country.name
 
             // Create a PopupWindow and set its content view
             val popupWindow = PopupWindow(
@@ -67,8 +73,8 @@ class CountriesAdapter(val countriesList:List<CountryAttributes>): RecyclerView.
             popupWindow.showAtLocation(itemView, Gravity.CENTER, 0, 0)
         }
         
-        val serial:TextView=itemView.findViewById(R.id.serial)
-        val countryNames:TextView =itemView.findViewById(R.id.countryNames)
+        val name:TextView=itemView.findViewById(R.id.countryNames)
+//        val code:TextView =itemView.findViewById(R.id.serial)
         val imageView:ImageView =itemView.findViewById(R.id.flag_image)
 
     }

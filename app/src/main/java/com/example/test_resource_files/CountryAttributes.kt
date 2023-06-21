@@ -1,5 +1,5 @@
 package com.example.test_resource_files
 
-class CountryAttributes(var serial:Int, var countryName:String, var countryFlag:Int) {
-    constructor():this(0, countryName ="", 0)
+class CountryAttributes(var name:String, var code:String, var flag:String) {
+    constructor():this("", code ="", "")
 }

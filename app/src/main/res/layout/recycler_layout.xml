@@ -4,23 +4,38 @@
     android:layout_width="match_parent"
     android:background="@drawable/layout_borders"
     android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="50sp"
+<!--    <TextView-->
+<!--        android:layout_width="50sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10sp"-->
+<!--        android:padding="10sp"-->
+<!--        android:id="@+id/serial"/>-->
+    <LinearLayout
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-        android:padding="10sp"
-        android:id="@+id/serial"/>
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10sp"
+            android:id="@+id/countryNames"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="10sp"
-        android:id="@+id/countryNames"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:id="@+id/flag_image"/>
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:id="@+id/flag_image"/>
+    </LinearLayout>
+
 
 </LinearLayout>
