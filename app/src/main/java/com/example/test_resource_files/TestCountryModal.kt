@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName ="countries")
-data class CountryModal(
+data class TestCountryModal(
     @PrimaryKey var id:Int,
     @ColumnInfo(name = "name") var name:String,
     @ColumnInfo(name="flag") var flag:String

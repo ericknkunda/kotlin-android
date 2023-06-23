@@ -16,7 +16,7 @@
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/eac_nations"
+        android:id="@+id/countries"
         android:text="@string/firstfragment"
         android:background="@drawable/button_borders"
         android:textColor="#000000"
@@ -26,6 +26,7 @@
         android:onClick="openFirstFragment"
         android:textSize="12dp"/>
     <Button
+        android:id="@+id/othercountries"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:text="click me"
@@ -37,7 +38,9 @@
         android:textColor="#000000"
         android:onClick="openSecondFragment"
         android:fontFamily="sans-serif"/>
+
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -19,79 +23,60 @@ import org.json.JSONArray
 class eacMessage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countriesAdapter: CountriesAdapter
-    lateinit var dbObj:AppDB
-//    if(dataObject?.){
-//
-//    }
+     lateinit var countryDbObj:CountryDatabase
+     private var onRecyclerViewLoaded:RecyclerViewLoaded? =null
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?):
+            View? {
         // Inflate the layout for this fragment
         val view:View= inflater.inflate(R.layout.fragment_eac_message, container, false)
 
         recyclerView =view.findViewById(R.id.countries_recycler)
+        val searchView =view.findViewById<SearchView>(R.id.search)
+        searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+
+            override fun onQueryTextSubmit(query:String):Boolean{
+
+                return  false;
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                countriesAdapter.filter.filter(newText)
+                return true
+            }
+
+        })
+
+        val list = mutableListOf<CountryAttributes>()
 
 
-        val list = mutableListOf<CountryModal>()
-        dbObj = AppDB.getDatabase(requireContext())
-        list.add(CountryModal(1, "Rwanda", "Rwanda-flag"))
-        list.add(CountryModal(2, "Burundi", "Burundi-flag"))
-        list.add(CountryModal(3, "Kenya", "Kenya-flag"))
-        list.add(CountryModal(4, "Uganda", "Uganda-flag"))
-        list.add(CountryModal(5, "DR Congo", "DR Congo-flag"))
+        list.add(CountryAttributes(1, "Randa","RW", "Rwanda-flag"))
+        list.add(CountryAttributes(2, "Burundi", "BU", "Burundi-flag"))
+        list.add(CountryAttributes(3, "Kenya", "KE","Kenya-flag"))
+        list.add(CountryAttributes(4, "Uganda", "UG","Uganda-flag"))
+        list.add(CountryAttributes(5, "DR Congo", "DRC","DR Congo-flag"))
 
-        val listToDb =dbObj.dataObj()
-        listToDb.insertCountries(list)
-        val listFromDb =listToDb.getCountries()
-
-        Log.d("Success", "inserted")
-
-        Log.d("Error","No data at all $listFromDb?")
-
-//        val dataRetrieved =dataObject.getCountries()
-
-        println("Countries $listFromDb")
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager =layoutManager
 
-        getAllCpountryCode()
-        return view
-    }
-    fun getAllCpountryCode(){
-        GlobalScope.launch(Dispatchers.IO ) {
-            try {
-                val client = OkHttpClient()
-                val request = Request.Builder().url("https://restcountries.com/v3.1/all").build()
-                val response =client.newCall(request).execute()
-                val responseBody =response.body?.string()
-                val countryCodes =mutableListOf<CountryAttributes>()
 
-                if(response.isSuccessful && !responseBody.isNullOrEmpty()) {
+        countryDbObj =CountryDatabase.getInstance(requireContext())
+        val countryInstance =countryDbObj.getCountriesDao()
 
-                    val jsonArray = JSONArray(responseBody)
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
 
-//                        retrieve vars
-                        val name = jsonObject.getJSONObject("name").getString("common")
-                        val code = jsonObject.getString("cca2")
-                        var flag = jsonObject.getJSONObject("flags").getString("png")
-
-                        val countryAttributes = CountryAttributes(name, code, flag)
-                        countryCodes.add(countryAttributes)
-                    }
-                    withContext(Dispatchers.Main){
-                        countriesAdapter = CountriesAdapter(countryCodes)
-//                        countriesAdapter.updateData(countryCodes)
-                        recyclerView.adapter =countriesAdapter
-                    }
-                }
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
+        val listOf =countryInstance.getCountries()
+        Log.d("Data", "List of countries $listOf")
+        countriesAdapter =CountriesAdapter(listOf)
+        recyclerView.adapter =countriesAdapter
+        if(countriesAdapter.itemCount>0) {
+            onRecyclerViewLoaded?.onRecyclerViewLoadedListener()
         }
 
+        return view
     }
+
+
     companion object {
         /**
          * Use this factory method to create a new instance of

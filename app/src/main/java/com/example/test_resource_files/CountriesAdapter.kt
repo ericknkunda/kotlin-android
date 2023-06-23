@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
-class CountriesAdapter(var countriesList:List<CountryAttributes>): RecyclerView.Adapter<CountriesAdapter.CountriesHolder>() {
+class CountriesAdapter(var countriesList:List<CountryAttributes>):
+    RecyclerView.Adapter<CountriesAdapter.CountriesHolder>(), Filterable{
+
+    private var filteredDataList:List<CountryAttributes> =countriesList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesAdapter.CountriesHolder {
 //        TODO("Not yet implemented")
        val inflator:LayoutInflater =LayoutInflater.from(parent.context)
@@ -23,7 +29,7 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>): RecyclerView.
 
     override fun onBindViewHolder(holder: CountriesAdapter.CountriesHolder, position: Int) {
 //        TODO("Not yet implemented")
-    val attributedCountry =countriesList.get(position)
+    val attributedCountry =filteredDataList.get(position)
         holder.name.text =attributedCountry.name.toString()
         Picasso.get().load(attributedCountry.flag).into(holder.imageView)
 //        holder.code.text =attributedCountry.code.toString()
@@ -77,6 +83,31 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>): RecyclerView.
 //        val code:TextView =itemView.findViewById(R.id.serial)
         val imageView:ImageView =itemView.findViewById(R.id.flag_image)
 
+    }
+
+    override fun getFilter(): Filter {
+        return object :Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                var query = constraint?.toString()?.lowercase(Locale.getDefault())
+                val filteredList =if(query.isNullOrBlank()){
+                    countriesList
+                }
+                else{
+                    countriesList.filter { item->
+                        item.name.lowercase(Locale.getDefault()).contains(query)
+                    }
+                }
+
+                val result =FilterResults()
+                result.values =filteredList
+                return result
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredDataList =results?.values as? List<CountryAttributes>?: emptyList()
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }

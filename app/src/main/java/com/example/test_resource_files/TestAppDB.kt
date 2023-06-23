@@ -6,20 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities =[CountryModal::class], version =2, exportSchema = false)
-abstract class AppDB:RoomDatabase() {
-    abstract fun dataObj(): DataObject
+@Database(entities =[TestCountryModal::class], version =2, exportSchema = false)
+abstract class TestAppDB:RoomDatabase() {
+    abstract fun dataObj(): TestDataObject
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDB? = null
+        private var INSTANCE: TestAppDB? = null
 
-        fun getDatabase(context: Context): AppDB {
+        fun getDatabase(context: Context): TestAppDB {
 
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDB::class.java,
+                    TestAppDB::class.java,
                     "app_database"
                 ).allowMainThreadQueries().build()
             }
