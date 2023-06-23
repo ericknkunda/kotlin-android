@@ -8,10 +8,10 @@ import androidx.room.Query
 
 @Dao
 interface DataObject {
-    @Query("select *from countries")
+    @Query("SELECT * FROM countries")
 
     fun getCountries():List<CountryModal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCountries(countriesList:List<CountryModal>)
-}
+    }

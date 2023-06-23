@@ -1,6 +1,7 @@
 package com.example.test_resource_files
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,10 @@ import org.json.JSONArray
 class eacMessage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countriesAdapter: CountriesAdapter
-    val databaseObj = context?.let { AppDB.getDatabase(it) }
-    val dataObject = databaseObj?.dataObj()
+    lateinit var dbObj:AppDB
+//    if(dataObject?.){
+//
+//    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,18 +30,27 @@ class eacMessage : Fragment() {
         val view:View= inflater.inflate(R.layout.fragment_eac_message, container, false)
 
         recyclerView =view.findViewById(R.id.countries_recycler)
+
+
         val list = mutableListOf<CountryModal>()
+        dbObj = AppDB.getDatabase(requireContext())
+        list.add(CountryModal(1, "Rwanda", "Rwanda-flag"))
+        list.add(CountryModal(2, "Burundi", "Burundi-flag"))
+        list.add(CountryModal(3, "Kenya", "Kenya-flag"))
+        list.add(CountryModal(4, "Uganda", "Uganda-flag"))
+        list.add(CountryModal(5, "DR Congo", "DR Congo-flag"))
 
-        list.add(CountryModal("1", "Rwanda", "Rwanda-flag"))
-        list.add(CountryModal("2", "Burundi", "Burundi-flag"))
-        list.add(CountryModal("3", "Kenya", "Kenya-flag"))
-        list.add(CountryModal("4", "Uganda", "Uganda-flag"))
-        list.add(CountryModal("5", "DR Congo", "DR Congo-flag"))
+        val listToDb =dbObj.dataObj()
+        listToDb.insertCountries(list)
+        val listFromDb =listToDb.getCountries()
 
-        dataObject?.insertCountries(list)
-        val dataRetrieved =dataObject?.getCountries()
+        Log.d("Success", "inserted")
 
-        println("Countries $dataRetrieved")
+        Log.d("Error","No data at all $listFromDb?")
+
+//        val dataRetrieved =dataObject.getCountries()
+
+        println("Countries $listFromDb")
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager =layoutManager
 

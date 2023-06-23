@@ -21,21 +21,7 @@ class MainActivity : AppCompatActivity() {
 //        myButton =(Button)
     var framelayout =findViewById<FrameLayout>(R.id.fragment_frame)
 
-    val folderName = "Images Folder"
 
-    // Determine the directory path (internal or external storage)
-    val directoryPath = getExternalFilesDir(null)?.absolutePath ?: filesDir.absolutePath
-
-    // Create the folder
-    val folder = File(directoryPath, folderName)
-    folder.mkdir()
-
-    // Optionally, you can check if the folder was created successfully
-    if (folder.exists()) {
-        Log.d("MyApp", "Folder created successfully")
-    } else {
-        Log.e("MyApp", "Failed to create the folder")
-    }
     }
 
     fun openActivitryTwo(view: View){
