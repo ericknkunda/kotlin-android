@@ -9,18 +9,8 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONArray
 
-class eacMessage : Fragment() {
+class AllCountries : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countriesAdapter: CountriesAdapter
      lateinit var countryDbObj:CountryDatabase
@@ -30,10 +20,12 @@ class eacMessage : Fragment() {
                               savedInstanceState: Bundle?):
             View? {
         // Inflate the layout for this fragment
-        val view:View= inflater.inflate(R.layout.fragment_eac_message, container, false)
+        val view:View= inflater.inflate(R.layout.all_countries, container, false)
 
         recyclerView =view.findViewById(R.id.countries_recycler)
+
         val searchView =view.findViewById<SearchView>(R.id.search)
+        searchView.queryHint ="search a country"
         searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
 
             override fun onQueryTextSubmit(query:String):Boolean{
@@ -51,11 +43,11 @@ class eacMessage : Fragment() {
         val list = mutableListOf<CountryAttributes>()
 
 
-        list.add(CountryAttributes(1, "Randa","RW", "Rwanda-flag"))
-        list.add(CountryAttributes(2, "Burundi", "BU", "Burundi-flag"))
-        list.add(CountryAttributes(3, "Kenya", "KE","Kenya-flag"))
-        list.add(CountryAttributes(4, "Uganda", "UG","Uganda-flag"))
-        list.add(CountryAttributes(5, "DR Congo", "DRC","DR Congo-flag"))
+//        list.add(CountryAttributes(1, "Randa","RW", "Rwanda-flag"))
+//        list.add(CountryAttributes(2, "Burundi", "BU", "Burundi-flag"))
+//        list.add(CountryAttributes(3, "Kenya", "KE","Kenya-flag"))
+//        list.add(CountryAttributes(4, "Uganda", "UG","Uganda-flag"))
+//        list.add(CountryAttributes(5, "DR Congo", "DRC","DR Congo-flag"))
 
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager =layoutManager
@@ -89,7 +81,7 @@ class eacMessage : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            eacMessage().apply {
+            AllCountries().apply {
                 arguments = Bundle().apply {
 //                    putString(ARG_PARAM1, param1)
 //                    putString(ARG_PARAM2, param2)

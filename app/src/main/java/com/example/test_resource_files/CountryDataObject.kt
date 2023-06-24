@@ -16,4 +16,7 @@ interface CountryDataObject {
 
     @Query("DELETE FROM countriesdb")
      fun deleteAllCountries():Unit
+
+     @Query("UPDATE countriesdb SET population = :currentPopulation WHERE country_name =:name ")
+     fun updateCountries(name:String, currentPopulation:Int):Integer
 }

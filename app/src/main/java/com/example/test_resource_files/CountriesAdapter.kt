@@ -18,7 +18,7 @@ import java.util.Locale
 class CountriesAdapter(var countriesList:List<CountryAttributes>):
     RecyclerView.Adapter<CountriesAdapter.CountriesHolder>(), Filterable{
 
-    private var filteredDataList:List<CountryAttributes> =countriesList
+    private var filteredDataList:List<CountryAttributes> =ArrayList(countriesList)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesAdapter.CountriesHolder {
 //        TODO("Not yet implemented")
        val inflator:LayoutInflater =LayoutInflater.from(parent.context)
@@ -29,9 +29,11 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>):
 
     override fun onBindViewHolder(holder: CountriesAdapter.CountriesHolder, position: Int) {
 //        TODO("Not yet implemented")
-    val attributedCountry =filteredDataList.get(position)
+    val attributedCountry = filteredDataList[position]
         holder.name.text =attributedCountry.name.toString()
+        holder.countryCapital.text =attributedCountry.capital
         Picasso.get().load(attributedCountry.flag).into(holder.imageView)
+//        Picasso.get().load(attributedCountry.countryShape).into(holder.countryImage)
 //        holder.code.text =attributedCountry.code.toString()
 
 //        val imageId =attributedCountry.countryFlag
@@ -41,7 +43,7 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>):
 
     override fun getItemCount(): Int {
 //        TODO("Not yet implemented")
-        return  countriesList.size
+        return  filteredDataList.size
     }
     fun updateData(newCountryList: List<CountryAttributes>) {
         countriesList = newCountryList
@@ -56,7 +58,7 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>):
         override fun onClick(view:View){
             val position =adapterPosition
             if(position !=RecyclerView.NO_POSITION){
-                val country =countriesList[position]
+                val country =filteredDataList[position]
                 showPopup(country)
             }
         }
@@ -65,8 +67,32 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>):
             val popupView = inflater.inflate(R.layout.popup, null)
 
             // Find and set the country name in the popup view
-            val countryNameTextView = popupView.findViewById<TextView>(R.id.popup_view)
+            val countryNameTextView = popupView.findViewById<TextView>(R.id.country_name)
+            val countryLabel =popupView.findViewById<TextView>(R.id.popup_view)
+            val area:TextView =popupView.findViewById(R.id.area)
+            val continent:TextView =popupView.findViewById(R.id.continent)
+            val currency:TextView =popupView.findViewById(R.id.currency)
+            val independence:TextView =popupView.findViewById(R.id.independency)
+            val population:TextView =popupView.findViewById(R.id.population)
+            val capital:TextView =popupView.findViewById(R.id.capital)
+
+//            val president:TextView =popupView.findViewById(R.id.president)
+
             countryNameTextView.text = country.name
+            area.text =country.area.toString()
+            continent.text =country.continent
+            currency.text =country.currency
+            val independent =if(country.independence ==1){
+                "Yes"
+            }else{
+                "No"
+            }
+            independence.text =independent
+            population.text =country.population.toString()
+            capital.text =country.capital
+//            president.text =country.president
+
+
 
             // Create a PopupWindow and set its content view
             val popupWindow = PopupWindow(
@@ -82,6 +108,8 @@ class CountriesAdapter(var countriesList:List<CountryAttributes>):
         val name:TextView=itemView.findViewById(R.id.countryNames)
 //        val code:TextView =itemView.findViewById(R.id.serial)
         val imageView:ImageView =itemView.findViewById(R.id.flag_image)
+        val countryCapital:TextView =itemView.findViewById(R.id.capital)
+
 
     }
 
