@@ -50,4 +50,6 @@
     <string name="frag_two">I am second fragment</string>
     <string name="firstfragment">All Countries</string>
     <string name="secondfragment">Continent Based</string>
+    <string name="side_menu_setting">Settings</string>
+    <string name="side_menu_mode">Switch to dark</string>
 </resources>

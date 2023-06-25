@@ -13,14 +13,14 @@ abstract class CountryDatabase:RoomDatabase() {
     companion object{
 
         var instance:CountryDatabase? =null
-//        fallbackToDestructiveMigration()
+//        fallbackToDestructiveMigration() .addMigrations(MigratorClass())
         fun getInstance(context: Context):CountryDatabase{
             if (instance ==null){
             instance = Room.databaseBuilder(
                 context.applicationContext,
                 CountryDatabase::class.java,
                 "countriesdatabase"
-            ).addMigrations(MigratorClass()).allowMainThreadQueries().build()
+            ).allowMainThreadQueries().build()
             }
             return  instance!!
             instance

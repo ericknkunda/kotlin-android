@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 
 class AllCountries : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countriesAdapter: CountriesAdapter
      lateinit var countryDbObj:CountryDatabase
      private var onRecyclerViewLoaded:RecyclerViewLoaded? =null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?):
@@ -25,7 +31,7 @@ class AllCountries : Fragment() {
         recyclerView =view.findViewById(R.id.countries_recycler)
 
         val searchView =view.findViewById<SearchView>(R.id.search)
-        searchView.queryHint ="search a country"
+        searchView.queryHint ="search by country name"
         searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
 
             override fun onQueryTextSubmit(query:String):Boolean{
@@ -39,15 +45,7 @@ class AllCountries : Fragment() {
             }
 
         })
-
         val list = mutableListOf<CountryAttributes>()
-
-
-//        list.add(CountryAttributes(1, "Randa","RW", "Rwanda-flag"))
-//        list.add(CountryAttributes(2, "Burundi", "BU", "Burundi-flag"))
-//        list.add(CountryAttributes(3, "Kenya", "KE","Kenya-flag"))
-//        list.add(CountryAttributes(4, "Uganda", "UG","Uganda-flag"))
-//        list.add(CountryAttributes(5, "DR Congo", "DRC","DR Congo-flag"))
 
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager =layoutManager
@@ -64,6 +62,7 @@ class AllCountries : Fragment() {
         if(countriesAdapter.itemCount>0) {
             onRecyclerViewLoaded?.onRecyclerViewLoadedListener()
         }
+
 
         return view
     }

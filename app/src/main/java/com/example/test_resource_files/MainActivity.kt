@@ -10,15 +10,23 @@ import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.Switch
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,20 +36,22 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 
-class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
+class MainActivity : AppCompatActivity(), RecyclerViewLoaded, NavigationView.OnNavigationItemSelectedListener {
 //    var myButton:Button=Button(this)
 
     lateinit var countryDatabase: CountryDatabase
-    lateinit var rotatingAnimation:ImageView
+    lateinit var rotatingAnimation: ImageView
+    lateinit var drawerLayout:DrawerLayout
+    lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_resource)
+        setContentView(R.layout.main)
 //        myButton =(Button)
         var framelayout = findViewById<FrameLayout>(R.id.fragment_frame)
         var countries = findViewById<Button>(R.id.countries)
         var otherCountries = findViewById<Button>(R.id.othercountries)
-        rotatingAnimation =findViewById(R.id.globe)
+        rotatingAnimation = findViewById(R.id.globe)
 //        val rotationImage =AnimationUtils.loadAnimation(this, R.anim.rotate_image)
 //        rotatingAnimation.startAnimation(rotationImage)
         // Create rotation animation
@@ -52,6 +62,37 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
             0f,
             360f
         )
+        val btnThreeBar = findViewById<ImageButton>(R.id.three_bar)
+        drawerLayout = findViewById<DrawerLayout>(R.id.dlayout)
+        navigationView = findViewById<NavigationView>(R.id.sidemenus)
+//        val switchMode = findViewById<Switch>(R.id.switchMode)
+
+//        if(switchMode.isChecked){
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//
+//        }else{
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
+//
+//
+//        switchMode.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                // Switch to dark mode
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            } else {
+//                // Switch to light mode
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            }
+//            recreate()
+//        }
+
+        btnThreeBar.setOnClickListener(View.OnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        })
+
+        navigationView.setNavigationItemSelectedListener(this)
+
+
         rotationAnimator.duration = 6000 // Duration for one complete rotation (in milliseconds)
         rotationAnimator.repeatCount = ObjectAnimator.INFINITE // Repeat the animation indefinitely
         rotationAnimator.interpolator = LinearInterpolator()
@@ -63,8 +104,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
             -50f,
             50f
         )
-        translationAnimator.duration = 1500 // Duration for one half of the translation (in milliseconds)
-        translationAnimator.repeatCount = ObjectAnimator.INFINITE // Repeat the animation indefinitely
+        translationAnimator.duration =
+            1500 // Duration for one half of the translation (in milliseconds)
+        translationAnimator.repeatCount =
+            ObjectAnimator.INFINITE // Repeat the animation indefinitely
         translationAnimator.repeatMode = ObjectAnimator.REVERSE // Reverse the translation animation
 
         // Create AnimatorSet to combine rotation and translation animations
@@ -80,7 +123,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
 //        countryInstance.deleteAllCountries()
 
         val isConnected = isNetworkAvaialble(applicationContext)
-        if(isConnected) {
+        if (isConnected) {
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Dispatchers.Main) {
                     updateDb(countryInstance)
@@ -89,6 +132,30 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
         }
     }
 
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.settings -> {
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+                true
+            }
+
+            R.id.switch_mode -> {
+                val switchDarkMode = menuItem.actionView?.findViewById<Switch>(R.id.switch_mode)
+                switchDarkMode?.setOnCheckedChangeListener { _, isChecked ->
+                    val nightMode = if (isChecked) {
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    } else {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    }
+                    AppCompatDelegate.setDefaultNightMode(nightMode)
+                    recreate()
+                }
+            }
+            else -> false
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true
+    }
     fun isNetworkAvaialble(context:Context):Boolean{
         val connectionManager =context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -265,6 +332,5 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded {
         val searchView: SearchView = findViewById(R.id.search)
         searchView.visibility = View.VISIBLE
     }
-
 
 }

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/hdpi"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Test_resource_files"
+        android:theme="@style/appTheme.Light"
         tools:targetApi="31" >
         <activity
             android:name=".activity2"
