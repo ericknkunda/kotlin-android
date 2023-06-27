@@ -21,6 +21,13 @@ android {
 
     buildTypes {
         release {
+            applicationVariants.all{variant->
+                variant.outputs.all {
+                    def appName="Navigation System"
+                    outputFileName ="${appName}-${variant.versionName}.apk"
+                }
+
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

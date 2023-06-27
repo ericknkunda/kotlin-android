@@ -3,7 +3,6 @@
     <style name="btn_bgrd" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/layout_borders</item>
         <item name="android:backgroundTint">@null</item>
-
     </style>
     <style name="appTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:textColor">@android:color/black</item>

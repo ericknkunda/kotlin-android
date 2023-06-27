@@ -152,12 +152,16 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded, NavigationView.OnN
         countryDatabase = CountryDatabase.getInstance(applicationContext)
         val countryInstance = countryDatabase.getCountriesDao()
 
+
 //        countryInstance.deleteAllCountries()
 
         val isConnected = isNetworkAvaialble(applicationContext)
         if (isConnected) {
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Dispatchers.Main) {
+                    if(countryInstance.getCountries().isEmpty()){
+                        insertIntoRoom(countryInstance)
+                    }
                     updateDb(countryInstance)
                 }
             }
