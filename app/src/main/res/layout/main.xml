@@ -5,28 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dlayout">
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:id="@+id/sidemenus"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/side_menu"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
 
-    <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="5dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/layout_borders"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/layout_borders"
+            android:orientation="horizontal">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -35,46 +27,80 @@
             android:padding="10dp"
             android:layout_margin="10dp"
             android:id="@+id/three_bar"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/countries"
-        android:text="@string/firstfragment"
-        android:background="@drawable/button_borders"
-        android:textColor="#000000"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        style="@style/btn_bgrd"
-        android:onClick="openFirstFragment"
-        android:textSize="12dp"/>
-    <Button
-        android:id="@+id/othercountries"
-        android:layout_width="wrap_content"
-        android:layout_height="50sp"
-        android:text="@string/secondfragment"
-        android:padding="10dp"
-        android:layout_margin="15dp"
-        android:textAlignment="center"
-        style="@style/btn_bgrd"
-        android:background="@drawable/button_borders"
-        android:textColor="#000000"
-        android:onClick="openSecondFragment"
-        android:fontFamily="sans-serif"/>
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/rgb1"
-        android:id="@+id/fragment_frame">
-
-        <ImageView
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/countries"
+            android:text="@string/firstfragment"
+            android:background="@drawable/button_borders"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            style="@style/btn_bgrd"
+            android:onClick="openFirstFragment"
+            android:textSize="12dp"/>
+        <Button
+            android:id="@+id/othercountries"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:text="@string/secondfragment"
+            android:padding="10dp"
+            android:layout_margin="15dp"
             android:textAlignment="center"
+            style="@style/btn_bgrd"
+            android:background="@drawable/button_borders"
+            android:textColor="#000000"
+            android:onClick="openSecondFragment"
+            android:fontFamily="sans-serif"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/globe"
-            android:src="@drawable/globe"/>
-    </FrameLayout>
-</LinearLayout>
-    </androidx.drawerlayout.widget.DrawerLayout>
+            android:background="@color/rgb1"
+            android:id="@+id/fragment_frame">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:id="@+id/globe"
+                android:src="@drawable/globe"/>
+        </FrameLayout>
+    </LinearLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/sidemenus"
+        android:fitsSystemWindows="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+<!--            <Switch-->
+<!--                android:id="@+id/themeSwitch"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                android:checked="false"-->
+<!--                android:text="Dark Mode" />-->
+            <Button
+                android:id="@+id/btn_change_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="32dp"
+                android:text="Change theme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

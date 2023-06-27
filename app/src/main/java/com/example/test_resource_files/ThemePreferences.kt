@@ -1,4 +1,4 @@
-package com.example.navigationpane
+package com.example.test_resource_files
 
 import android.content.Context
 import androidx.preference.PreferenceManager

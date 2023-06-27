@@ -6,9 +6,9 @@
     android:title="@string/side_menu_setting"/>
 
     <item
-        android:id="@+id/switch_mode"
-        android:title="@string/side_menu_mode"
-        app:actionViewClass="android.widget.Switch"
+        android:id="@+id/side_switch"
         android:checkable="true"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SwitchCompat"
+        android:title="Toggle Mode"/>
 </menu>

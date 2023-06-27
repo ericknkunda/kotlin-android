@@ -3,4 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="rgb1">#FFFFFFFF</color>
+    <color name="color_primary">#008577</color>
+    <color name="color_primary_dark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!-- Dark theme colors -->
+    <color name="colorPrimaryDark_dark">#003329</color>
+    <color name="colorAccentDark_dark">#B71C5D</color>
 </resources>

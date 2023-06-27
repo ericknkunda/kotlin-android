@@ -5,10 +5,11 @@
         <item name="android:backgroundTint">@null</item>
 
     </style>
-    <style name="appTheme.Light" parent="Theme.AppCompat.Light">
+    <style name="appTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:textColor">@android:color/black</item>
 
     </style>
-    <style name="apppTheme.Dark" parent="Theme.AppCompat.DayNight">
-        <item name="android:windowBackground">@color/cardview_dark_background</item>
+    <style name="apppTheme.Dark" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
