@@ -5,14 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CountryAttributes::class], version = 6, exportSchema = false)
+@Database(entities = [CountryDataObject::class], version = 6, exportSchema = false)
 abstract class CountryDatabase:RoomDatabase() {
 
     abstract fun getCountriesDao():CountryDataObject
 
     companion object{
 
-        var instance:CountryDatabase? =null
+        private var instance:CountryDatabase? =null
 //        fallbackToDestructiveMigration() .addMigrations(MigratorClass())
         fun getInstance(context: Context):CountryDatabase{
             if (instance ==null){

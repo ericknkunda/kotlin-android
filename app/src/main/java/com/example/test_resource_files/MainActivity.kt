@@ -5,7 +5,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,6 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.SearchView
-import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -270,8 +268,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded, NavigationView.OnN
                             independenceStatus =1
                         }
 
-                        val countryAttributes = CountryAttributes(name, code, flag, area, shape, continent,
-                            currencyname, independenceStatus, population, president, capital)
+                        val countryAttributes = CountryAttributes(
+                            name, code, flag, area, shape, continent,
+                            currencyname, independenceStatus, population, president, capital
+                        )
                             countryDao.updateCountries(name, population)
 //                        Log.d("object", "Retrieved object ${countryDao.getCountries().get(i)}")
 //                        println("Index ${fetchedCountries.get(i)}")
@@ -350,7 +350,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewLoaded, NavigationView.OnN
 
                 }
             }catch (e:Exception){
-                e.printStackTrace()}
+                e.printStackTrace()
+            }
         }
     }
 
